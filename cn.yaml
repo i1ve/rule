@@ -16,11 +16,11 @@ payload:
   - DOMAIN-KEYWORD,biji
   - DOMAIN-KEYWORD,crxsoso
   # CLASH
-  - DOMAIN,yacd.kogeki.cf
-  - DOMAIN,yacd.haishan.me
-  - DOMAIN,clash.razord.top
-  - DOMAIN,yacd.metacubex.one
-  - DOMAIN,clash.metacubex.one
+  #- DOMAIN,yacd.kogeki.cf
+  #- DOMAIN,yacd.haishan.me
+  #- DOMAIN,clash.razord.top
+  #- DOMAIN,yacd.metacubex.one
+  #- DOMAIN,clash.metacubex.one
   - DOMAIN-SUFFIX,zhuan.mlsao.ml
   - DOMAIN-SUFFIX,api.orangeapi.org
 
