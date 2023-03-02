@@ -1,0 +1,8 @@
+payload:
+  # P2P STUN
+
+  # 域名
+  - DOMAIN-SUFFIX,chat.bilibili.com:2245/sub
+  - DOMAIN-SUFFIX,chat.bilibili.com/sub
+  - DOMAIN-SUFFIX,chat.bilibili.com
+
