@@ -1,7 +1,7 @@
 # rule
 > 自用Clash配置文件模板
 
-[config.yaml](https://raw.iqiq.io/i1ve/rule/main/config.yaml)
++ [config.yaml](https://jsd.cdn.zzko.cn/gh/i1ve/rule@main/config.yaml)
 
 # App Filter
 > 分流规则
