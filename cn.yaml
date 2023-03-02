@@ -4,7 +4,6 @@ payload:
   # 域名
   - DOMAIN,tt.vg
   - DOMAIN,tt.sbs
-  - DOMAIN,goo.gs
   # 后缀
   - DOMAIN-SUFFIX,iui.su
   - DOMAIN-SUFFIX,mail.tm
