@@ -1,0 +1,122 @@
+mixed-port: 7890
+redir-port: 7891
+tproxy-port: 1536
+allow-lan: true
+mode: rule
+geodata-mode: true
+unified-delay: true
+log-level: info
+ipv6: false
+external-controller: 127.0.0.1:9090
+#external-ui: dashboard
+secret: ""
+enable-process: true
+find-process-mode: strict
+#tcp-concurrent: true
+global-client-fingerprint: chrome
+
+geox-url:
+  geoip: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip.dat"
+  geosite: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
+  mmdb: "https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country.mmdb"
+
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+sniffer:
+  enable: false
+  sniff:
+    TLS:
+      ports: [443, 8443]
+    HTTP:
+      ports: [80, 8080-8880]
+      override-destination: true
+
+tun:
+  enable: false
+  device: tun3
+  stack: system
+  inet6-address: 
+  dns-hijack:
+    - 'any:53'
+  auto-route: true
+  auto-detect-interface: true
+
+dns:
+  enable: true
+  listen: 0.0.0.0:1053
+  ipv6: false
+  enhanced-mode: fake-ip
+  fake-ip-range: 28.0.0.1/8
+  fake-ip-filter:
+    - '*'
+    - '+.lan'
+    - 'connect.rom.miui.com'
+  default-nameserver:
+    - 'https://223.5.5.5/dns-query'
+  nameserver:
+    - 'https://223.5.5.5/dns-query'
+
+proxies:
+p: &p
+  {type: http, interval: 3600, health-check: {enable: true, url: https://www.gstatic.com/generate_204, interval: 300}}
+
+proxy-providers:
+  provider1:
+    <<: *p
+    url: ""
+    path: ./provider1.yaml
+
+  provider2:
+    <<: *p
+    url: ""
+    path: ./provider2.yaml
+
+proxy-groups:
+  - name: 中国代理
+    type: select
+    use:
+      - provider1
+
+  - name: 科学上网
+    type: select
+    use:
+      - provider2
+
+rule-providers:
+  proxy:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/DustinWin/clash-ruleset@release/proxy.yaml"
+    path: ./ruleset/proxy.yaml
+    interval: 86400
+
+  cn:
+    type: http
+    behavior: domain
+    url: "https://cdn.jsdelivr.net/gh/DustinWin/clash-ruleset@release/cn.yaml"
+    path: ./ruleset/cn.yaml
+    interval: 86400
+
+  lanip:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/DustinWin/clash-ruleset@release/lanip.yaml"
+    path: ./ruleset/lanip.yaml
+    interval: 86400
+
+  cnip:
+    type: http
+    behavior: ipcidr
+    url: "https://cdn.jsdelivr.net/gh/DustinWin/clash-ruleset@release/cnip.yaml"
+    path: ./ruleset/cnip.yaml
+    interval: 86400
+
+rules:
+  - RULE-SET,proxy,科学上网
+  - RULE-SET,cn,中国代理
+
+  - RULE-SET,lanip,DIRECT,no-resolve
+  - RULE-SET,cnip,中国代理
+  - MATCH,科学上网
